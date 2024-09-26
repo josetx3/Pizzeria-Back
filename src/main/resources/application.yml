@@ -1,0 +1,11 @@
+server:
+  port: 8012
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pizza-jose
+    username: postgres
+    password: 123
+  jpa:
+    database: POSTGRESQL
+    hibernate.ddl-auto: create
+    show-sql: true
