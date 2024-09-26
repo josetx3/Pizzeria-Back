@@ -33,8 +33,8 @@ public class CustomerEntity {
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<PizzaOrderEntity> pizzaOrder;
+    private PizzaOrderEntity pizzaOrder;
 
 }

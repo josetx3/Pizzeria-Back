@@ -34,11 +34,11 @@ public class PizzaOrderEntity {
     @Column(name = "additional_notes")
     private String additionalNotes;
 
-    @OneToMany(mappedBy = "pizzaOrder", fetch = FetchType.EAGER)
-    private List<OrderItemEntity> orderItems;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_customer", nullable = false, referencedColumnName = "id_customer")
     private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "pizzaOrder", fetch = FetchType.EAGER)
+    private List<OrderItemEntity> orderItems;
 
 }
