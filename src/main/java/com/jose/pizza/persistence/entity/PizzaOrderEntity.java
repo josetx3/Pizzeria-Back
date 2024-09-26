@@ -34,8 +34,8 @@ public class PizzaOrderEntity {
     @Column(name = "additional_notes")
     private String additionalNotes;
 
-    @OneToOne
-    @JoinColumn(name = "id_customer", nullable = false, referencedColumnName = "id_customer")
+    @ManyToOne
+    @JoinColumn(name = "id_customer", nullable = false)
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "pizzaOrder", fetch = FetchType.EAGER)
