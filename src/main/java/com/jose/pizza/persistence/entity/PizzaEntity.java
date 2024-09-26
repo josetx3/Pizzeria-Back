@@ -39,8 +39,8 @@ public class PizzaEntity {
     @Column(name = "available", nullable = false)
     private Boolean available;
 
-    @OneToMany(mappedBy = "pizza", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "pizza", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<OrderItemEntity> orderItems;
+    private OrderItemEntity orderItems;
 
 }

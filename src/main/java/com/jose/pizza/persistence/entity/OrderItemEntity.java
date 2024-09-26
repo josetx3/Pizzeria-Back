@@ -26,7 +26,7 @@ public class OrderItemEntity {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_pizza", nullable = false, referencedColumnName = "id_pizza")
     private PizzaEntity pizza;
 
