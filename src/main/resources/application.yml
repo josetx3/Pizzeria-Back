@@ -9,3 +9,11 @@ spring:
     database: POSTGRESQL
     hibernate.ddl-auto: update
     show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        hbm2ddl:
+          charset_name: UTF-8
+          import_files: scripts/data.sql
