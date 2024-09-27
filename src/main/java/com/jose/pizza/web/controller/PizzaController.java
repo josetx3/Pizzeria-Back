@@ -19,26 +19,31 @@ public class PizzaController {
         this.pizzaService = pizzaService;
     }
 
+    //    LISTAR TODAS LAS PIZZAS
     @GetMapping
     public ResponseEntity<List<PizzaEntity>> getAll() {
         return ResponseEntity.ok(this.pizzaService.getAll());
     }
 
+    //    Listar pizza por ID
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> getById(@PathVariable UUID idPizza) {
         return ResponseEntity.ok(this.pizzaService.getById(idPizza));
     }
 
+    //    Listar pizzas disponibles
     @GetMapping("/available")
-    public ResponseEntity <List<PizzaEntity>> getAllAvailable() {
+    public ResponseEntity<List<PizzaEntity>> getAllAvailable() {
         return ResponseEntity.ok(this.pizzaService.getAllAvailable());
     }
 
+    //Buscar pizza por nombre
     @GetMapping("/available/{name}")
-    public ResponseEntity <PizzaEntity> getAllAvailableByName(@PathVariable String name) {
+    public ResponseEntity<PizzaEntity> getAllAvailableByName(@PathVariable String name) {
         return ResponseEntity.ok(this.pizzaService.getAllAvailableByName(name));
     }
 
+    // Registrar una pizza
     @PostMapping
     public ResponseEntity<PizzaEntity> AddPizza(@RequestBody PizzaEntity pizza) {
         if (pizza.getIdPizza() == null || !this.pizzaService.existsPizza(pizza.getIdPizza())) {
@@ -47,6 +52,7 @@ public class PizzaController {
         return ResponseEntity.badRequest().build();
     }
 
+    //    Editar una pizza por id
     @PutMapping
     public ResponseEntity<PizzaEntity> UpdatePizza(@RequestBody PizzaEntity pizza) {
         if (pizza.getIdPizza() != null || this.pizzaService.existsPizza(pizza.getIdPizza())) {
@@ -55,9 +61,10 @@ public class PizzaController {
         return ResponseEntity.badRequest().build();
     }
 
+    //    Eliminar una pizza
     @DeleteMapping("/{idPizza}")
-    public ResponseEntity<Void> deletePizza(@PathVariable UUID idPizza){
-        if (this.pizzaService.existsPizza(idPizza)){
+    public ResponseEntity<Void> deletePizza(@PathVariable UUID idPizza) {
+        if (this.pizzaService.existsPizza(idPizza)) {
             this.pizzaService.deletePizza(idPizza);
             return ResponseEntity.ok().build();
         }
