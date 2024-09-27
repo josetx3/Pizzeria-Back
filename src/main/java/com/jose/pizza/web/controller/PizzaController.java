@@ -43,6 +43,18 @@ public class PizzaController {
         return ResponseEntity.ok(this.pizzaService.getAllAvailableByName(name));
     }
 
+    //Buscar pizza por descripcion | por ingrediente
+    @GetMapping("ingredients/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getDescriptionPizza(@PathVariable String ingredient) {
+        return ResponseEntity.ok(this.pizzaService.getDescriptionPizza(ingredient));
+    }
+
+    //Buscar pizza que no tenga el ingrediente
+    @GetMapping("not-ingredients/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getNotDescriptionPizza(@PathVariable String ingredient) {
+        return ResponseEntity.ok(this.pizzaService.getNotDescriptionPizza(ingredient));
+    }
+
     // Registrar una pizza
     @PostMapping
     public ResponseEntity<PizzaEntity> AddPizza(@RequestBody PizzaEntity pizza) {
