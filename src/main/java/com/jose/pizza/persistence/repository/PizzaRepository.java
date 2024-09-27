@@ -1,4 +1,4 @@
-package com.jose.pizza.persistence;
+package com.jose.pizza.persistence.repository;
 
 import com.jose.pizza.persistence.entity.PizzaEntity;
 import org.springframework.data.repository.ListCrudRepository;

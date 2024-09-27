@@ -1,5 +1,6 @@
 package com.jose.pizza.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,6 @@ public class PizzaOrderEntity {
     @Column(name = "id_order", nullable = false)
     private UUID idOrder;
 
-
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 
@@ -34,8 +34,9 @@ public class PizzaOrderEntity {
     @Column(name = "additional_notes")
     private String additionalNotes;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_customer", nullable = false)
+    @JsonIgnore
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "pizzaOrder", fetch = FetchType.EAGER)

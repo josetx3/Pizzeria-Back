@@ -32,6 +32,7 @@ public class OrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_order", nullable = false, referencedColumnName = "id_order")
+    @JsonIgnore
     private PizzaOrderEntity pizzaOrder;
 
 

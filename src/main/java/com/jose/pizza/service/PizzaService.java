@@ -1,6 +1,6 @@
 package com.jose.pizza.service;
 
-import com.jose.pizza.persistence.PizzaRepository;
+import com.jose.pizza.persistence.repository.PizzaRepository;
 import com.jose.pizza.persistence.entity.PizzaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
