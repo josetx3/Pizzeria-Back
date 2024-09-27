@@ -1,5 +1,6 @@
 package com.jose.pizza.web.controller;
 
+import com.jose.pizza.persistence.entity.PizzaEntity;
 import com.jose.pizza.persistence.entity.PizzaOrderEntity;
 import com.jose.pizza.service.PizzaOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,15 @@ public class PizzaOrderController {
     public ResponseEntity<PizzaOrderEntity> getPizzaOrderById(@PathVariable UUID idOrder) {
         return ResponseEntity.ok(this.pizzaOrderService.getPizzaOrderById(idOrder));
     }
+
+    @GetMapping("/today")
+    public ResponseEntity<List<PizzaOrderEntity>> getTodayPizzaOrders() {
+        return ResponseEntity.ok(this.pizzaOrderService.getTodayPizzaOrders());
+    }
+
+    @GetMapping("/outside")
+    public ResponseEntity<List<PizzaOrderEntity>> getOutSidePizzaOrders() {
+        return ResponseEntity.ok(this.pizzaOrderService.getOutsidePizzaOrders());
+    }
+
 }
