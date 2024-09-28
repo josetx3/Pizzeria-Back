@@ -3,6 +3,7 @@ package com.jose.pizza.web.controller;
 import com.jose.pizza.persistence.entity.PizzaEntity;
 import com.jose.pizza.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class PizzaController {
 
     //    LISTAR TODAS LAS PIZZAS
     @GetMapping
-    public ResponseEntity<List<PizzaEntity>> getAll() {
-        return ResponseEntity.ok(this.pizzaService.getAll());
+    public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int elements) {
+        return ResponseEntity.ok(this.pizzaService.getAll(page, elements));
     }
 
     //    Listar pizza por ID
