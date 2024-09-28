@@ -3,6 +3,7 @@ package com.jose.pizza.web.controller;
 import com.jose.pizza.persistence.entity.PizzaEntity;
 import com.jose.pizza.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,15 +45,21 @@ public class PizzaController {
     }
 
     //Buscar pizza por descripcion | por ingrediente
-    @GetMapping("ingredients/{ingredient}")
+    @GetMapping("/ingredients/{ingredient}")
     public ResponseEntity<List<PizzaEntity>> getDescriptionPizza(@PathVariable String ingredient) {
         return ResponseEntity.ok(this.pizzaService.getDescriptionPizza(ingredient));
     }
 
     //Buscar pizza que no tenga el ingrediente
-    @GetMapping("not-ingredients/{ingredient}")
+    @GetMapping("/not-ingredients/{ingredient}")
     public ResponseEntity<List<PizzaEntity>> getNotDescriptionPizza(@PathVariable String ingredient) {
         return ResponseEntity.ok(this.pizzaService.getNotDescriptionPizza(ingredient));
+    }
+
+    //Me trae las 3 pizzas mas baratas desde el precio que yo le envie
+    @GetMapping("/cheapest/{price}")
+    public ResponseEntity<List<PizzaEntity>> getCheapestPizzas(@PathVariable double price) {
+        return ResponseEntity.ok(this.pizzaService.getCheapestPizzas(price));
     }
 
     // Registrar una pizza
@@ -62,6 +69,7 @@ public class PizzaController {
             return ResponseEntity.ok(this.pizzaService.savePizza(pizza));
         }
         return ResponseEntity.badRequest().build();
+//        return new ResponseEntity<>(pizzaService.savePizza(pizza), HttpStatus.CREATED);
     }
 
     //    Editar una pizza por id
