@@ -44,4 +44,12 @@ public class PizzaEntity extends AuditableEntity {
     @JsonIgnore     //Si tiene esto no viajaran hasta la consulta y no se mostraran
     private OrderItemEntity orderItems;
 
+    public void updatePizza(String name, String description, Double price, Boolean vegetarian, Boolean vegan, Boolean available) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.vegetarian = vegetarian;
+        this.vegan = vegan;
+        this.available = available;
+    }
 }

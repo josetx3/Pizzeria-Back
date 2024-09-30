@@ -3,9 +3,9 @@ package com.jose.pizza.service;
 import com.jose.pizza.persistence.repository.PizzaPagSortRepository;
 import com.jose.pizza.persistence.repository.PizzaRepository;
 import com.jose.pizza.persistence.entity.PizzaEntity;
+import com.jose.pizza.service.dto.UpdatePizzaDto;
 import com.jose.pizza.service.dto.UpdatePizzaPriceDto;
 import com.jose.pizza.service.exception.EmailApiException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,12 +20,11 @@ import java.util.UUID;
 @Service
 public class PizzaService {
 
-    private final PizzaRepository pizzaRespository;
+    private final PizzaRepository pizzaRepository;
     private final PizzaPagSortRepository pizzaPagSortRepository;
 
-    @Autowired
-    public PizzaService(PizzaRepository pizzaRespository, PizzaPagSortRepository pizzaPagSortRepository) {
-        this.pizzaRespository = pizzaRespository;
+    public PizzaService(PizzaRepository pizzaRepository, PizzaPagSortRepository pizzaPagSortRepository) {
+        this.pizzaRepository = pizzaRepository;
         this.pizzaPagSortRepository = pizzaPagSortRepository;
     }
 
@@ -42,40 +41,47 @@ public class PizzaService {
     }
 
     public PizzaEntity getAllAvailableByName(String name) {
-        return this.pizzaRespository.findFirstByAvailableTrueAndNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("La pizza no existe"));
+        return this.pizzaRepository.findFirstByAvailableTrueAndNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("La pizza no existe"));
     }
 
     public List<PizzaEntity> getDescriptionPizza(String ingredient) {
-        return this.pizzaRespository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
+        return this.pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
     }
 
     public List<PizzaEntity> getNotDescriptionPizza(String ingredient) {
-        return this.pizzaRespository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
+        return this.pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
     }
 
     public List<PizzaEntity> getCheapestPizzas(double price) {
-        return this.pizzaRespository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
+        return this.pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
     }
 
     public PizzaEntity getById(UUID idPizza) {
-        return this.pizzaRespository.findById(idPizza).orElse(null);
+        return this.pizzaRepository.findById(idPizza).orElse(null);
     }
 
     public PizzaEntity savePizza(PizzaEntity pizza) {
-        return this.pizzaRespository.save(pizza);
+        return this.pizzaRepository.save(pizza);
     }
 
     public void deletePizza(UUID idPizza) {
-        this.pizzaRespository.deleteById(idPizza);
+        this.pizzaRepository.deleteById(idPizza);
     }
 
     public boolean existsPizza(UUID idPizza) {
-        return this.pizzaRespository.existsById(idPizza);
+        return this.pizzaRepository.existsById(idPizza);
+    }
+
+    @Transactional
+    public void updatePizza(UUID idPizza, UpdatePizzaDto dto) {
+        PizzaEntity pizzaEntity = pizzaRepository.findById(idPizza).orElseThrow(() -> new IllegalArgumentException("No existe la pizza"));
+        pizzaEntity.updatePizza(dto.getName(), dto.getDescription(), dto.getPrice(), dto.getVegetarian(), dto.getVegan(), dto.getAvailable());
+        pizzaRepository.save(pizzaEntity);
     }
 
     @Transactional(noRollbackFor = EmailApiException.class, propagation = Propagation.REQUIRED)
     public void updatePricePizza(UpdatePizzaPriceDto dto) {
-        this.pizzaRespository.updatePrice(dto);
+        this.pizzaRepository.updatePrice(dto);
         this.sendEmail();
     }
 
