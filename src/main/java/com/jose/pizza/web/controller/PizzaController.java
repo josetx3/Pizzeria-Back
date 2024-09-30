@@ -79,15 +79,6 @@ public class PizzaController {
 //        return new ResponseEntity<>(pizzaService.savePizza(pizza), HttpStatus.CREATED);
     }
 
-    //    Editar una pizza por id
-    @PutMapping
-    public ResponseEntity<PizzaEntity> UpdatePizza(@RequestBody PizzaEntity pizza) {
-        if (pizza.getIdPizza() != null || this.pizzaService.existsPizza(pizza.getIdPizza())) {
-            return ResponseEntity.ok(this.pizzaService.savePizza(pizza));
-        }
-        return ResponseEntity.badRequest().build();
-    }
-
     @PutMapping("/edit/{idPizza}")
     public ResponseEntity<Void> updatePizza(@PathVariable UUID idPizza, @RequestBody UpdatePizzaDto dto) {
         this.pizzaService.updatePizza(idPizza, dto);
