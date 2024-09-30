@@ -5,16 +5,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "pizza", schema = "main")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
-public class PizzaEntity {
+public class PizzaEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue
@@ -40,7 +41,7 @@ public class PizzaEntity {
     private Boolean available;
 
     @OneToOne(mappedBy = "pizza", fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonIgnore     //Si tiene esto no viajaran hasta la consulta y no se mostraran
     private OrderItemEntity orderItems;
 
 }
