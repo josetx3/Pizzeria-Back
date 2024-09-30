@@ -43,4 +43,10 @@ public class PizzaOrderController {
         return ResponseEntity.ok(this.pizzaOrderService.getOutsidePizzaOrders());
     }
 
+    //Consultar cliente y mirar las ordenes
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<List<PizzaOrderEntity>> getCustomerOrders(@PathVariable UUID id) {
+        return ResponseEntity.ok(this.pizzaOrderService.getCustomerOrders(id));
+    }
+
 }

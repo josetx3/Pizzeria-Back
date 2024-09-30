@@ -44,4 +44,8 @@ public class PizzaOrderService {
         return this.pizzaOrderRepository.findAllByMethodIn(methods);
     }
 
+    public List<PizzaOrderEntity> getCustomerOrders(UUID idCustomer) {
+        return this.pizzaOrderRepository.findCustomerOrders(idCustomer);
+    }
+
 }
