@@ -1,6 +1,7 @@
 package com.jose.pizza.service;
 
 import com.jose.pizza.persistence.entity.PizzaOrderEntity;
+import com.jose.pizza.persistence.projection.PizzaOrderSummary;
 import com.jose.pizza.persistence.repository.PizzaOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,10 @@ public class PizzaOrderService {
 
     public List<PizzaOrderEntity> getCustomerOrders(UUID idCustomer) {
         return this.pizzaOrderRepository.findCustomerOrders(idCustomer);
+    }
+
+    public PizzaOrderSummary getSummary(UUID orderId) {
+        return this.pizzaOrderRepository.findSummary(orderId);
     }
 
 }
