@@ -3,12 +3,14 @@ package com.jose.pizza.service;
 import com.jose.pizza.persistence.repository.PizzaPagSortRepository;
 import com.jose.pizza.persistence.repository.PizzaRepository;
 import com.jose.pizza.persistence.entity.PizzaEntity;
+import com.jose.pizza.service.dto.UpdatePizzaPriceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -68,5 +70,12 @@ public class PizzaService {
     public boolean existsPizza(UUID idPizza) {
         return this.pizzaRespository.existsById(idPizza);
     }
+
+    @Transactional
+    public void updatePricePizza(UpdatePizzaPriceDto dto){
+        this.pizzaRespository.updatePrice(dto);
+    }
+
+
 
 }
