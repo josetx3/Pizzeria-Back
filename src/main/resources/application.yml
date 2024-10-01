@@ -8,7 +8,7 @@ spring:
   jpa:
     database: POSTGRESQL
     hibernate.ddl-auto: update
-    show-sql: true
+    show-sql: false
     open-in-view: true
     properties:
       hibernate:
@@ -17,3 +17,10 @@ spring:
         hbm2ddl:
           charset_name: UTF-8
           import_files: scripts/data.sql
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web.*:
+            debug
